@@ -20,7 +20,7 @@ export default function example(){
 
     /** 원근카메라 */
     const camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000)
-    camera.position.z = 5;
+    camera.position.z = 15;
     scene.add(camera);
 
     /** 빛 */
@@ -41,15 +41,15 @@ export default function example(){
     const draw = () => {
 
       let initialScale = 0;
-      let acceleration = 0.04;
+      let acceleration = 0.1;
       let exp = 0
       exp += 1;
       let speedFunc = Math.pow(acceleration,exp) + initialScale;
       renderer.render(scene, camera);
       mesh.rotation.y += THREE.MathUtils.degToRad(1);
       mesh.position.y += speedFunc;
-        if(mesh.position.y > 3){
-          mesh.position.y = 0
+        if(mesh.position.y > 10){
+          mesh.position.y = 0;
         }
       // window.requestAnimationFrame(draw);
       renderer.setAnimationLoop(draw); //되도록이면 이걸로 하자..
