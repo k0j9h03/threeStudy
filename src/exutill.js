@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import Stats from 'stats.js'; // 라이브러리 불러오기
-// import Dat from 'dat.gui';
 import * as dat from 'dat.gui';
 
 // ----- 주제: AxesHelper, GridHelper
@@ -70,12 +69,9 @@ export default function example() {
 
 
     //DAT
-     const gui = new dat.GUI();
+            const gui = new dat.GUI({autoPlace: false});    
             gui.add(mesh.position, 'y', -5, 5, 0.01).name('큐브 Y 위치'); // 한글 이름 추가
-            // dat.GUI는 자동으로 DOM에 추가되므로, 다음 라인은 필요하지 않습니다.
-            // document.body.appendChild(gui.domElement);
-            document.querySelector('.dg.ac').style.display = 'block';
-            document.querySelector('.dg.ac').style.zIndex = 9999;
+ 
 
 	// 그리기
 	const clock = new THREE.Clock();
