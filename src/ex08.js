@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import dat from 'dat.gui';
 
 // ----- 주제: 
@@ -11,7 +12,7 @@ export default function example() {
         antialias: true
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
+    renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1); //화질개선
 
     // Scene
     const scene = new THREE.Scene();
@@ -26,6 +27,12 @@ export default function example() {
     camera.position.y = 1.5;
     camera.position.z = 4;
     scene.add(camera);
+    
+    
+    //controls
+    const controls = new OrbitControls( camera, renderer.domElement );
+    controls.enableDamping = false;
+
 
     // Light
     const ambientLight = new THREE.AmbientLight('white', 0.5);
@@ -39,7 +46,10 @@ export default function example() {
     // Mesh
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const material = new THREE.MeshStandardMaterial({
-        color: 'seagreen'
+        color: 'green',
+        // wireframe : true,
+        side : THREE.DoubleSide
+
     });
     const box1 = new THREE.Mesh(geometry, material);
     const box2 = box1.clone();
@@ -66,6 +76,10 @@ export default function example() {
     const axesHelper = new THREE.AxesHelper(3);
     scene.add(axesHelper);
 
+
+    const gridHelper = new THREE.GridHelper(10, 10); // 크기 10, 분할 수 10
+    scene.add(gridHelper);
+
     // Dat GUI
     const gui = new dat.GUI();
     gui.add(camera.position, 'x', -5, 5, 0.1).name('카메라 X');
@@ -76,6 +90,7 @@ export default function example() {
     const clock = new THREE.Clock();
 
     function draw() {
+        controls.update();
         const delta = clock.getDelta();
         renderer.render(scene, camera);
         renderer.setAnimationLoop(draw);
