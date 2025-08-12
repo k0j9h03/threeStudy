@@ -19,8 +19,10 @@ const camera = new THREE.OrthographicCamera(
   100                         // far plane
 );
 
-camera.position.set(0, -10, 10); // 카메라 위치 설정
+camera.position.set(0, 0, 20); // 카메라 위치 설정
 camera.lookAt(0, 0, 0);         // 카메라가 (0,0,0)을 바라보게 설정
+
+
 
 
 const canvas = document.querySelector('#three-canvas');
@@ -32,9 +34,14 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight); 
 scene.background = new THREE.Color(0xffffff); 
 
+
+    const controls = new OrbitControls(camera, renderer.domElement); // 2. 객체 생성
+    controls.update();
+
+
 // ---------------- 경로 설정 ----------------
-let texturePath = "./image1.png";    // 메인 이미지 경로
-let shadowTexturePath = "./image1.png"; // 그림자 이미지 경로
+let texturePath = "./image11.png";    // 메인 이미지 경로
+let shadowTexturePath = "./image11.png"; // 그림자 이미지 경로
 
 // ---------------- sphere (마우스 위치 표시용) ----------------
 let geometry_sphere = new THREE.SphereGeometry(0.25, 32, 16); // 구 생성
@@ -88,7 +95,7 @@ let shader_material = new THREE.ShaderMaterial({
       vec4 worldPosition = modelMatrix * localPosition; // 월드 좌표로 변환
 
       float dist = length(uDisplacement - worldPosition.rgb); // 변형 중심까지 거리 계산
-      float min_distance = 4.; // 변형이 적용되는 최대 거리
+      float min_distance = 3.; // 변형이 적용되는 최대 거리
 
       // 거리 범위 내라면 Z축 변형 적용
       if (dist < min_distance){
