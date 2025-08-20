@@ -7,7 +7,12 @@
 // import example from './exutill.js';
 // import example from './ex07.js';
 // import example from './ex08.js';
-import example from './exTEST.js';
+// import example from './exTEST.js';
+
+
+// import example from './ex09.js';
+import example from './ex10.js';
+
 
 
 
